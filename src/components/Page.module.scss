@@ -1,0 +1,116 @@
+.Wrapper {
+  flex-basis: 50%;
+  display: none;
+  position: relative;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  background: {
+    size: cover;
+    color: grey;
+    position: center;
+  }
+  transform-origin: left;
+  transition: .75s ease-in-out;
+  transform: rotateY(0deg) perspective(1000px);
+  border-radius: 15px 5px 5px 15px;
+
+  &.Left {
+    transform-origin: right;
+    border-radius: 5px 15px 15px 5px;
+  }
+
+  &.beforePrevPage {
+    left: 0;
+    display: block;
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    z-index: -1;
+    border-radius: 5px 15px 15px 5px;
+  }
+
+  &.prevPage, &.nextPage {
+    right: 0;
+    transform-origin: left;
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 50%;
+    height: 100%;
+    backface-visibility: visible;
+    transform: rotateY(-180deg) perspective(1000px);
+  }
+
+  &.nextPage {
+    left: 0;
+    right: initial;
+    transform-origin: right;
+    transform: rotateY(180deg) perspective(1000px);
+    border-radius: 5px 15px 15px 5px;
+  }
+
+  &.afterNextPage {
+    right: 0;
+    display: block;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    border-radius: 15px 5px 5px 15px;
+  }
+
+  &.AnimNext {
+    transform: rotateY(180deg);
+    z-index: 90;
+    border-radius: 5px 15px 15px 5px;
+
+    ~ .nextPage {
+      transform: rotateY(0);
+      z-index: 90;
+    }
+  }
+
+  &.AnimPrev {
+    transform: rotateY(-180deg);
+    z-index: 90;
+  }
+
+  &.AnimPrevPrevPage {
+    transform: rotateY(0);
+    z-index: 91;
+
+    .nextPage {
+      transform: translateZ(-1px);
+    }
+  }
+
+  &.Active {
+    display: block;
+  }
+
+  p {
+    font-size: 16px;
+    font-family: 'Tahoma';
+    position: absolute;
+    padding: 10px;
+    color: #282828;
+    box-shadow: 0 0 10px -5px rgba(0, 0, 0, .75);
+    background: white;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &.BlockTransitions {
+    transition-duration: 0ms;
+  }
+}
+
+.Corner {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
